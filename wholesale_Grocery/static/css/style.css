@@ -1,0 +1,494 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    background:  white;
+    padding: 12px 40px;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) ;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+.logo img{
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.logo h2{
+    color: white;
+    font-size: 28px;
+}
+.menu{
+    display: flex;
+    gap: 35px;
+    justify-content: center;
+    flex: 6;
+}
+.menu a{
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.menu a:hover{
+       color: blue; 
+}
+.account{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex: 1;
+}
+.account a{
+    color: white;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20%;
+    font-weight: bold;
+}
+.toggle-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+}
+.toggle-btn span {
+    height: 3px;
+    width: 100%;
+    background-color: #000;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+.login{
+    background: black;
+    color: white;
+}
+.login:hover{
+    color: blue;
+}
+
+/* media query */
+@media (max-width: 992px) {
+    header {
+        padding: 12px 20px;
+    }
+    .menu {
+        gap: 20px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        position: relative; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .toggle-btn {
+        display: flex;
+        order: 1;
+    }
+
+    .account {
+        order: 2;
+    }
+
+    .menu {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        background-color: #ffffff;
+        flex-direction: column !important;
+        align-items: center;
+        padding: 15px 0;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        gap: 12px !important;
+    }
+    .menu.active {
+        display: flex !important;
+    }
+    .menu a {
+        width: 100%;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 16px;
+    }
+    footer {
+        grid-template-columns: 1fr !important; 
+        border-top: 1px solid #222;
+        background: black !important;
+    }
+    footer div {
+        border-right: none !important; 
+        border-bottom: 1px solid #222; 
+        padding: 20px !important;
+        text-align: center; 
+    }
+    footer div:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu a {
+        font-size: 14px;
+    }
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Main container fix */
+    .product-section {
+        padding: 10px;
+    }
+    .product-section > div,
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .product-card {
+        width: 100% !important;
+        max-width: 300px; 
+        margin: 0 auto;
+    }
+    .product-card img {
+        height: auto;
+        max-height: 200px;
+        object-fit: contain; 
+    }
+    .btn-cart {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-card {
+        max-width: 100%; 
+    }
+}
+.register{
+    background: orange;
+    color: white;
+}
+.register:hover{
+    color: red;
+}
+main{
+    min-height: 500px;
+    padding: 20px;
+}
+
+/* home page product details */
+.product-section{
+    padding: 20px;
+}
+.product-section h2{
+    margin-bottom: 20px;
+}
+.product-card{
+    width: 230px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    transition: .3s;
+}
+.product-card:hover{
+    box-shadow: 0 0 10px #ccc;
+}
+.product-card img{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.offer{
+    background: green;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+.time{
+    float: right;
+    color: green;
+    font-size: 13px;
+}
+.product-card h5{
+    margin: 10px 0;
+}
+.price-box{
+    font-weight: bold;
+    color: green;
+}
+.btn-cart{
+    width: 100%;
+    padding: 8px;
+    background: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* home page category  */
+.category-container{
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.category-title{
+    font-size: 20px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+
+}
+/* Flexbox horizontal layout */
+.category-grid{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    justify-content: center;
+
+}
+.category-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.category-card:hover{
+    transform: translateY(-3px);
+}
+.circle-bg{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background-color: #ebf6ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.circle-bg img{
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+}
+.category-card span{
+    font-size: 13px;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
+}
+/* contact form style */
+.contact-page{
+    background: #f5f5f5;
+    padding: 40px;
+}
+.contact-page .container{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    gap: 40px;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px #ccc;
+}
+.contact-page .left{
+    width: 60%;
+}
+.contact-page .right{
+    width: 40%;
+    border-left: 1px solid #ddd;
+    padding-left: 30px;
+    margin: 100px;
+}
+.contact-page input, .contact-page textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+}
+.contact-page textarea{
+    height: 120px;
+}
+.contact-page h3{
+    color: green;
+}
+.contact-page hr{
+    margin: 15px 0;
+}
+@media (max-width: 768px) {
+    .contact-page {
+        padding: 15px;
+    }
+    .contact-page .container {
+        width: 100%;
+        flex-direction: column; 
+        gap: 20px;
+        padding: 20px;
+    }
+    .contact-page .left {
+        width: 100%;
+    }
+    .contact-page .right {
+        width: 100%;
+        border-left: none; 
+        border-top: 1px solid #ddd; 
+        padding-left: 0;
+        padding-top: 20px;
+        margin: 0;
+    }
+    .contact-page input, 
+    .contact-page textarea {
+        box-sizing: border-box; 
+    }
+}
+/* use of a part category page */
+.card{
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-header{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.form-control,
+.form-select{
+    border-radius:6px;
+}
+
+.btn{
+    border-radius:6px;
+}
+
+footer{
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   background: black;
+   border-top: 1px solid #222; 
+}
+footer div{
+    padding: 30px;
+    border-right: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+footer div:last-child{
+    border-right: none;
+}
+footer h2{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 8PX;
+    letter-spacing: 1PX;
+}
+footer a{
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+}
+footer a:hover{
+    color: #fff;
+}
+footer p{
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* Admin Dashboar Design */
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.header h2{
+    font-size: 22px;
+    color: #333;
+}
+.bread{
+    font-size: 14px;
+    color: #777;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 18px;
+}
+.card{
+    padding: 20px 10px;
+    border-radius: 14px;
+    color: #fff;
+    text-align: center;
+}
+.icon { 
+    width: 44px; 
+    height: 44px; 
+    background: rgba(255,255,255,0.25); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto 10px; 
+    font-size: 18px; 
+}
+.card p{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.card h3{
+    font-size: 18px;
+    font-weight: 600;
+}
+.c-blue{
+    background: linear-gradient(135deg, #4da7ff, #3082ec);
+}
+.c-teal{
+    background: linear-gradient(135deg, #26d0ce, #1aab9b);
+}
+
+.c-green{
+    background: linear-gradient(135deg, #4bd242, #2db125);
+}
+.c-red{
+    background: linear-gradient(135deg, #ff5e62, #ff9966);
+}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" src="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="contact-page">
+        <div class="container">
+            <div class="left">
+        <center>
+            <h3>Contact Us Page</h3><br>
+
+            <form action="" method="POST">
+{% csrf_token %}
+                    <input type="text" name="name" placeholder="Name" required><br><br>
+              
+                    <input type="text" name="mobile" placeholder="Mobile No" required><br><br>
+               
+                    <input type="email" name="email" placeholder="E-Mail" required><br><br>
+              
+                    <textarea name="message" placeholder="Message" required></textarea><br><br>
+              
+                <button value="submit" name="submit" class="btn btn-success">Send Message</button>
+             </center>
+        </form>
+        </div>
+    
+      <div class="right">
+         <h3>Contact Information</h3>
+         <p><b>Adrress</b>:Ahmedabad</p>
+         <p><b>Contact No</b>: 9054292733</p>
+         <p><b>Email</b>: jagatiyabrijesh@gmail.com</p>
+         <hr>
+         <h3>Opening Hours</h3>
+         <p>Mon-Fri,9:00am-8:00pm</p>
+         <p>Saturday,Sunday-Close</p>
+      </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

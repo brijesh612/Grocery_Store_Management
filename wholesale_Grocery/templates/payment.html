@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 550px;">
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">Select Payment Method</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label class="d-flex align-items-center mb-3" style="cursor: pointer;">
+                <input type="radio" name="payment_method" value="Razorpay" class="me-2" required>
+                <span>Razorpay</span>
+            </label>
+
+            <label class="d-flex align-items-center mb-3" style="cursor: pointer;">
+                <input type="radio" name="payment_method" value="COD" class="me-2">
+                <span>Cash on Delivery</span>
+            </label>
+
+            <label class="d-flex align-items-center mb-4" style="cursor: pointer;">
+                <input type="radio" name="payment_method" value="Credit" class="me-2">
+                <span>Credit Account</span>
+            </label>
+            
+            <button class="btn btn-success w-100">Proceed</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

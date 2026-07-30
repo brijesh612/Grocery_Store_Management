@@ -1,0 +1,26 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+    <h2>Order page</h2>
+        <form method="POST">
+          {% csrf_token %}
+        
+        <p>Enter Name: {{ form.name }} <input type="text" name="name"></p>
+        <p>Enter Mobile No: {{ form.mobile_no }}<input type="text" name="mobile"></p>
+        <p>Enter Email: {{ form.email }}<input type="email" name="email"></p>
+        <p>Enter Address: {{ form.address }}<textarea name="address"></textarea></p>
+        <p>Payment Method (Online / Offline): {{ form.payment_method }}</p>
+        
+        <button type="submit">Submit</button>
+        </form>
+        </center>
+</body>
+</html>
+{% endblock %}

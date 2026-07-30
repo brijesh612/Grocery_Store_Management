@@ -1,0 +1,73 @@
+<!-- admin addproduct to admin show a product page. -->
+
+{% extends 'admin/admin_base.html'%}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <div>
+      <h2>Admin Show Product</h2>
+      <center>
+      <a href="{% url 'addproduct' %}" class="btn btn-success">Add Product</a><br><br>
+      </center>
+    </div>
+      <table class="table table-border table-hover table-striped">
+        <thead class="table-success">
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th width="170">Action</th>
+            </tr>
+        </thead>
+<tbody>
+    {% for i in product %}
+     <tr>
+         <td>{{ i.id }}</td>
+         <td>{% if i.image %}
+               <img src="{{ i.image.url }}" width="70" height="70">
+             {% else %}
+                No Image
+             {% endif %}
+         </td>
+         <td>{{ i.productname }}</td>
+         <td>{{ i.category.categoryname }}</td>
+         <td>{{ i.description }}</td>
+         <td>{{ i.price }}</td>
+         <td>{{ i.stock }}</td>
+         <td>{% if i.status %}
+                    <span class="badge bg-success">Active</span>
+             {% else %}
+                    <span class="badge bg-success">Inactive</span>
+             {% endif %}
+         </td>
+
+         <td>
+            <a href="#">Edit</a>
+            <a href="{% url 'delete_product' i.id %}">Delete</a>
+        </td>
+        
+     </tr>
+     {% empty %}
+     <tr>
+         <td colspan="9 " class="text-center">No Show Details Product</td>
+     </tr>
+     {% endfor %}
+    </tbody>
+    </table>
+    </div>
+</body>
+</html>
+
+{% endblock %}

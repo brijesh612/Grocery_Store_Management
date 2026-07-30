@@ -1,0 +1,58 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+           <div class="container mt-4">
+            <h2 class="text-center">Categoy List</h2>
+            <center>                
+                <a href="{% url 'category_add' %}" class="btn btn-success mb-3">Add Category</a>
+            </center>
+
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class="table-success">
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+    <tbody> 
+         <!-- show all category admin side -->
+    {% for i in category %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.categoryname }}</td>
+            <td>{{ i.description }}</td>
+            <td>{% if i.status == True or i.status == 'Active' %}
+                  <span class="badge bg-success">Active</span>
+                {% else %}
+                  <span class="badge bg-success">Inactive</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'edit' %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+           <td colspan="5" class="text-center">No Category Found</td>
+        </tr>
+
+    {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
+{% endblock%}

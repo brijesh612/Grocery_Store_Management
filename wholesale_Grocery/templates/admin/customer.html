@@ -1,0 +1,42 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+       <h2>Customer List</h2>
+       <table class="table table-border table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ShopName</th>
+            <th>Mobile</th>
+            <th>E-Mail</th>
+            <th>Address</th>
+            <th>UserName</th>
+            <th>Password</th>
+          </tr>
+        </thead>
+
+       <tbody class="tbody">
+        {% for customer in customers  %}
+        <tr>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.shopname }}</td>
+            <td>{{ customer.mobile }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.address }}</td>
+            <td>{{ customer.username }}</td>
+            <td>{{ customer.password }}</td>
+        </tr>
+        {% endfor %}
+       </tbody>
+       </table>
+</body>
+</html>
+{% endblock %}

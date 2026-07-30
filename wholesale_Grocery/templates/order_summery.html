@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="card shadow p-4 rounded-4">
+        <h2 class="text-center mb-4" fw-bold> Order Summary </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row align-items-center">
+                <div class="col-md-5 text-center mb-4 mb-md-0">
+                    <img src="{{ product.image.url }}" class="img-fluid rounded" height="300">
+                </div>
+
+                <div class="col-md-7 text-start">
+                    <h3>{{ product.productname }}</h3>
+                    <p>{{ product.description }}</p>
+                    <h4 class="text-success">
+                        RS : {{ product.price }}
+                    </h4>
+                    <hr>
+
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" name="quantity" value="1" min="1" class="form-control">
+                    </div>
+
+                    <br><br>
+                    <h4>Shipping Details</h4>
+
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" name="customername" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Phone Number</label>
+                        <input type="text" name="customerphone" class="form-control"required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Address</label>
+                        <textarea name="customeraddress" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <button class="btn btn-success w-100">Continue To Payment</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

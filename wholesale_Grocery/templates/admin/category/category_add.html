@@ -1,0 +1,43 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Add Category</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="POST">
+{% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Category Name</label>
+                    <input type="text" name="categoryname" class="form-control" placeholder="Enter Category Name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control"rows="4" placeholder="Enter Description"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success">Save Category</button>
+
+                <a href="{% url 'categories' %}" class="btn btn-secondary">Back</a>
+
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

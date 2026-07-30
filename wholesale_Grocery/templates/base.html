@@ -1,0 +1,87 @@
+<!-- base.html file all file to run a header and footer -->
+<!-- main file -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Management</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'image/logo.jpg' %}" alt="Logo">
+            </div>
+
+            <div class="toggle-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <nav class="menu" id="navMenu">
+                <a href="/">Home</a> 
+                <a href="/products/">Products</a> 
+                <a href="/contact/">Contact Us</a> 
+                <a class="nav-link" href="{% url 'my_order' %}">My Order</a>
+             </nav>
+
+             <div class="account">
+                {% if request.session.customer_name %}
+                <span>Welcome,{{ request.session.customer_name }}</span>
+                   <a href="{% url 'logout' %}" class="login">Logout</a>
+                {% else %}
+                   <a href="/login/" class="login">Login</a> 
+                   <a href="/register/" class="register">Register</a>
+                {% endif %}
+             </div>
+        <hr>
+        </div>
+        </header>
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+    <hr>
+
+    <footer>
+        <div>
+            <h2>About Us</h2>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Contact Us</a>
+            <a href="#">My Order</a>
+        </div>
+
+        <div>
+            <h2>Support</h2>
+            <p>Help Cusromer</p>
+            <p>Privecy</p>
+            <p>Security</p>
+        </div>
+
+        <div>
+           <h2>Opening Hours</h2>
+            <p>Mon-Fri,9:00am-8:00pm</p>
+            <p>Saturday,Sunday-Close</p>
+        </div>
+
+        <div>
+            <h2>Contact</h2>
+            <p>+919054292733</p>
+            <p>Ahmedabad</p>
+        </div>
+    </footer>
+    <script>
+        function toggleMenu(){
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+     </script>
+</body>
+</html>

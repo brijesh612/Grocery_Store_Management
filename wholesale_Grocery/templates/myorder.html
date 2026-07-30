@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+   <div class="container mt-4">
+   <h2>My Order</h2>
+   <hr>
+        <table class="table table-bordered">
+                <thead>
+                    <tr>
+                       <th>ID</th>
+                       <th>Customer</th>
+                       <th>Product</th>
+                       <th>Quantity</th>
+                       <th>Total</th>
+                       <th>Payment</th>
+                       <th>Status</th>
+                       <th>Action</th>
+                    </tr>
+                </thead>  
+                <tbody>
+    {% for order in orders %}
+        <tr>
+            <td>#{{ order.id }}</td>
+            <td>{{ order.customername }}</td>
+            <td>{{ order.product }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>Rs:{{ order.totalamount }}</td>
+            <td>{{ order.payment_method }}</td>
+            
+            <td><span class="badge bg-success">{{ order.order_status }}</span></td>
+            <td><a href="{% url 'invoice_view' order.id %}" class="btn btn-sm btn-outline-primary" target="_blank">View Invoice</a></td>
+        </tr>
+    {% endfor %}
+         </tbody>
+      </table>
+    </div>
+
+{% endblock %}
