@@ -27,7 +27,17 @@
             <td>Rs:{{ order.totalamount }}</td>
             <td>{{ order.payment_method }}</td>
             
-            <td><span class="badge bg-success">{{ order.order_status }}</span></td>
+            <td>
+                    {% if order.order_status == 'Confirmed' %}
+                        <span class="badge bg-success">Confirmed</span>
+                    {% elif order.order_status == 'Pending' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif order.order_status == 'Cancelled' %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{{ order.order_status }}</span>
+                    {% endif %}
+                </td>
             <td><a href="{% url 'invoice_view' order.id %}" class="btn btn-sm btn-outline-primary" target="_blank">View Invoice</a></td>
         </tr>
     {% endfor %}

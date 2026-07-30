@@ -80,6 +80,7 @@ class Order(models.Model):
 
     def __str__(self):
         return self.customername
+    
 # client side contact table details
 class Contact(models.Model):
     name = models.CharField(max_length=100)
@@ -107,3 +108,13 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.order_id} - {self.customer_name}"
+
+class Staff(models.Model):
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    email = models.EmailField(blank=True,null=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.role})"

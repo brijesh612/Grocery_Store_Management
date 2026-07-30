@@ -20,6 +20,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from .models import Payment
+from .models import Staff
 # from .form import OrderForm
 
 client = razorpay.Client(
@@ -335,6 +336,14 @@ def order_success(request):
         order_status="Confirmed"
     )
     print("ORDER ID =", order.id)
+
+    Payment.objects.create(
+        order_id=f"#{order.id}",
+        customer_name=customer_obj.name,
+        amount=request.session.get("total"),
+        payment_method=request.session.get("payment_method"),
+        status="Completed"
+    )
     return redirect('my_order')
 
 # client side features client show my order.
@@ -403,12 +412,49 @@ def manage_payments(request):
     return render(request,'admin/manage_payments.html',{'payments':payments})
 
 # payment update feature
-def update_payment(request,payment_id):
+def update_payment(request, payment_id):
+
+    payment_obj = get_object_or_404(Payment, id=payment_id)
+
     if request.method == "POST":
         new_status = request.POST.get('status')
-        payment = get_object_or_404(payment,id=payment_id)
-        payment.status = new_status
-        payment.save()
+        payment_obj.status = new_status
+        payment_obj.save()
+
+        clean_order_id = str(payment_obj.order_id).replace('#', '').strip()
+
+        try:
+            order_obj = Order.objects.get(id=clean_order_id)
+
+            if new_status == "Completed":
+                order_obj.payment_status = "Paid"
+                order_obj.order_status = "Confirmed"
+            elif new_status == "Pending":
+                order_obj.payment_status = "Pending"
+                order_obj.order_status = "Pending"
+            elif new_status == "Failed":
+                order_obj.payment_status = "Failed"
+                order_obj.order_status = "Cancelled"
+            
+            order_obj.save()
+
+        except Order.DoesNotExist:
+            pass
     return redirect('manage_payments')
 
-    
+def manage_staff(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        role = request.POST.get('role')
+        phone = request.POST.get('phone')
+
+        Staff.objects.create(name=name,role=role,phone=phone) 
+        return redirect('manage_staff')
+
+    staff_list = Staff.objects.all().order_by('-id')
+    return render(request,'admin/manage_staff.html',{'staff_list':staff_list})
+
+def client_staff_view(request):
+    active_staff = Staff.objects.filter(is_active=True)
+    return render(request,'client_show_staff.html',{'staff_list':active_staff})
+

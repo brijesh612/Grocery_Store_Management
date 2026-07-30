@@ -1,0 +1,34 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+
+        <h2>Manage Staff</h2>
+
+        <form method="POST" style="margin-bottom: 20px;">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Staff Name" required>
+            <input type="text" name="role" placeholder="Role (e.g. Delivery Boy)" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <button type="submit">Add Staff</button>
+        </form>
+
+        <table border="1" style="width: 100%; text-align: left;">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Phone</th>
+                <th>Status</th>
+            </tr>
+            {% for staff in staff_list %}
+            <tr>
+                <td>#{{ staff.id }}</td>
+                <td>{{ staff.name }}</td>
+                <td>{{ staff.role }}</td>
+                <td>{{ staff.phone }}</td>
+                <td>{% if staff.is_active %}Active{% else %}Inactive{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No staff found.</td></tr>
+            {% endfor %}
+        </table>
+{% endblock %}

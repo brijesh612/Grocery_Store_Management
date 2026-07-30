@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <h2>Our Support & Delivery Team</h2>
+
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            {% for staff in staff_list %}
+            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; width: 200px;">
+                <h4 style="margin: 0;">{{ staff.name }}</h4>
+                <p style="color: #666; margin: 5px 0;">Role: <b>{{ staff.role }}</b></p>
+                <p style="margin: 5px 0;"> {{ staff.phone }}</p>
+            </div>
+            {% empty %}
+            <p>No staff available right now.</p>
+            {% endfor %}
+        </div>
+{% endblock %}

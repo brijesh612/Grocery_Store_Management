@@ -31,7 +31,9 @@ urlpatterns = [
     path("delete-order/<int:pk>/",views.delete_order, name='delete_order'),
     path("customer-list/",views.customer,name="customer"),
     path("admin-panel/payments",views.manage_payments,name="manage_payments"),
-    path("admin-panel/payments/update<int:payment_id>/",views.update_payment,name="update_payment"),
+    path("admin-panel/payments/update/<int:payment_id>/",views.update_payment,name="update_payment"),
+    path("admin-panel/staff/",views.manage_staff,name="manage_staff"),
+    path("client_show_staff",views.client_staff_view,name="client_show_staff"),
     # path('register/',views.register,name='register'),
     # path('login/',views.login,name='login'),
 
