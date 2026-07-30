@@ -14,8 +14,9 @@ class Category(models.Model): # category table
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active')
 
     def __str__(self):
-        return self.categoryname 
-
+        return self.categoryname
+     
+# admin side new admin create 
 class Admin(models.Model):
     username = models.CharField(max_length=70, unique=True)
     email = models.EmailField(unique=True)
@@ -25,6 +26,7 @@ class Admin(models.Model):
     def __str__(self):
         return self.username
 
+#clientside customer details table
 class Customer(models.Model):
 
     user = models.OneToOneField(User,on_delete=models.CASCADE, null=True, blank=True)
@@ -39,7 +41,8 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+# product table mange a product
 class Product(models.Model):
     productname   = models.CharField(max_length=200)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
@@ -52,6 +55,7 @@ class Product(models.Model):
     def __str__(self):
         return self.productname 
 
+# order table
 class Order(models.Model):
 
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE, null=True,blank=True)
@@ -76,7 +80,7 @@ class Order(models.Model):
 
     def __str__(self):
         return self.customername
-
+# client side contact table details
 class Contact(models.Model):
     name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=15)
@@ -86,6 +90,7 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+# payment table admin manage a payment pending, complete and failed
 class Payment(models.Model):
     STATUS_CHOICES = [
         ('Pending','Pending'),
