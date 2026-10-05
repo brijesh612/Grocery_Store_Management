@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .tracking-item {
+        padding: 14px 18px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        background-color: #f8f9fa;
+        min-height: 65px; /* બધા બોક્સની એક સરખી હાઈટ */
+    }
+
+    .tracking-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .tracking-time {
+        font-size: 12px;
+        color: #6c757d;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .tracking-badge {
+        font-size: 12px;
+        padding: 6px 14px;
+    }
+</style>
+
+<div class="container mt-5" style="max-width: 550px;">
+    <h3 class="text-center mb-4">Order Tracking (#{{ order.id }})</h3>
+
+    <div class="card p-4 shadow-sm border-0">
+        <h5>Product: {{ order.product }}</h5>
+        <p class="text-muted mb-0">Customer: {{ order.customername }}</p>
+        <hr class="my-3">
+
+        <ul class="list-group list-group-flush border-0">
+            <!-- 1. Order Placed -->
+            <li class="list-group-item d-flex justify-content-between align-items-center tracking-item border-0">
+                <div>
+                    <span class="tracking-title">1. Order Placed</span>
+                    <span class="tracking-time">{{ order.created_at|date:"d M, Y - h:i A" }}</span>
+                </div>
+                <span class="badge bg-success tracking-badge">Done</span>
+            </li>
+
+            <!-- 2. Shipped -->
+            <li class="list-group-item d-flex justify-content-between align-items-center tracking-item border-0">
+                <div>
+                    <span class="tracking-title">2. Shipped</span>
+                    {% if order.shipped_at %}
+                        <span class="tracking-time">{{ order.shipped_at|date:"d M, Y - h:i A" }}</span>
+                    {% endif %}
+                </div>
+                {% if order.shipped_at %}
+                    <span class="badge bg-success tracking-badge">Done</span>
+                {% else %}
+                    <span class="badge bg-secondary tracking-badge">Pending</span>
+                {% endif %}
+            </li>
+
+            <!-- 3. Out For Delivery -->
+            <li class="list-group-item d-flex justify-content-between align-items-center tracking-item border-0">
+                <div>
+                    <span class="tracking-title">3. Out For Delivery</span>
+                    {% if order.out_for_delivery_at %}
+                        <span class="tracking-time">{{ order.out_for_delivery_at|date:"d M, Y - h:i A" }}</span>
+                    {% endif %}
+                </div>
+                {% if order.out_for_delivery_at %}
+                    <span class="badge bg-success tracking-badge">Done</span>
+                {% else %}
+                    <span class="badge bg-secondary tracking-badge">Pending</span>
+                {% endif %}
+            </li>
+
+            <!-- 4. Delivered -->
+            <li class="list-group-item d-flex justify-content-between align-items-center tracking-item border-0">
+            <div class="d-flex flex-column justify-content-center">
+                <span class="tracking-title">4. Delivered</span>
+                <span class="tracking-time">
+                    {{ expected_delivery|date:"d M, Y" }}
+                </span>
+            </div>
+            {% if order.delivered_at %}
+                <span class="badge bg-success tracking-badge">Done</span>
+            {% else %}
+                <span class="badge bg-secondary tracking-badge">Pending</span>
+            {% endif %}
+        </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

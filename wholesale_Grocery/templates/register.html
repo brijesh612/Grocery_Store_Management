@@ -1,78 +1,271 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Retailer Register - Grocery Store</title>
+    <!-- fontawesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            background-color: #f8fafc !important; 
+            font-family: 'Poppins', sans-serif !important;
+        }
+        .iti { width: 100%; }
+
+        /* Card Container Styling */
+        .register-card-professional {
+            background: #ffffff;
+            border-radius: 24px !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+            overflow: hidden;
+            border: none !important;
+        }
+
+        /* left banner section */
+        .brand-section {
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.92), rgba(2, 44, 34, 0.95)), 
+                        url('https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=1000') center/cover;
+            color: #ffffff;
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .highlight-text {
+            color: #4ade80;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4ade80;
+        }
+
+        /* custom input wrapper for inner icons */
+        .input-group-custom {
+            position: relative;
+        }
+
+        .input-group-custom i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+            z-index: 5;
+        }
+
+        /* custom input styling */
+        .input-custom {
+            background-color: #ffffff !important; 
+            border: 1.5px solid #e2e8f0 !important;
+            border-radius: 10px !important;
+            padding: 10px 14px 10px 40px !important;
+            font-size: 14px !important;
+            color: #1e293b !important;
+            transition: all 0.2s ease;
+        }
+
+        .input-custom:focus {
+            background-color: #ffffff !important;
+            border-color: #16a34a !important;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15) !important;
+            outline: none;
+        }
+
+        .form-label-custom {
+            font-weight: 600 !important;
+            color: #334155 !important;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .btn-grocery {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-grocery:hover { 
+            background: linear-gradient(135deg, #15803d, #166534); 
+            color: white; 
+        }
+    </style>
 </head>
 <body>
 
-    <!-- simple Retailer register form -->
-       <div class="container mt-5">
-       <div class="row justify-content-center">
-       <div class="col-md-8">
-       <div class="card show">
-        
-        <center>
-             <h3>Retailer Register</h3>
-        </center>
-       </div>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="register-card-professional">
+                <div class="row g-0">
+                    
+                    <!-- left side grocery banner -->
+                    <div class="col-md-5 brand-section d-none d-md-flex">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-4">
+                                <i class="fa-solid fa-basket-shopping fs-3 text-success"></i>
+                                <h4 class="fw-bold m-0">Fresh<span class="highlight-text">Mart</span></h4>
+                            </div>
+                            
+                            <h2 class="fw-bold mb-3" style="font-size: 30px; line-height: 1.2;">
+                                Fresh <span class="highlight-text">Groceries,</span><br>Better Life
+                            </h2>
+                            <p class="text-light opacity-75 small mb-4">
+                                Join FreshMart and get access to the freshest groceries delivered right to your doorstep.
+                            </p>
 
-        <div class="card-body">
-            <form method="POST">
-<!-- {% csrf_token %} protect your data use of a form  -->
-{% csrf_token %} 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        Name:
-                        <input type="text" name="name" class="form-control" required>
+                            <div class="mt-4">
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+                                    <div>
+                                        <h6 class="m-0 fw-bold fs-6">100% Fresh</h6>
+                                        <small class="text-light opacity-75">Handpicked daily products</small>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                                    <div>
+                                        <h6 class="m-0 fw-bold fs-6">Fast Delivery</h6>
+                                        <small class="text-light opacity-75">Quick & safe order delivery</small>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                    <div>
+                                        <h6 class="m-0 fw-bold fs-6">Secure Shopping</h6>
+                                        <small class="text-light opacity-75">Safe payment options</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-top border-secondary border-opacity-50">
+                            <small class="text-light opacity-75"><i class="fa-solid fa-lock me-1"></i> 100% Secure Retailer Portal</small>
+                        </div>
                     </div>
 
-                     <div class="col-md-6 mb-3">
-                        ShopName:
-                        <input type="text" name="shopname" class="form-control" required>
+                    <!-- Rrght side registration form -->
+                    <div class="col-md-7 p-4 p-md-5">
+                        <div class="mb-4">
+                            <h3 class="fw-bold text-dark m-0">Retailer Registration</h3>
+                        </div>
+
+                        <form method="POST" id="registerForm">
+                            {% csrf_token %} 
+                            
+                            <input type="hidden" name="full_phone" id="full_phone">
+                            <input type="hidden" name="country_code" id="country_code" value="IN">
+                            <input type="hidden" name="country_name" id="country_name" value="India">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Name:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-regular fa-user"></i>
+                                        <input type="text" name="name" class="form-control input-custom" placeholder="Enter name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Shop Name:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-solid fa-store"></i>
+                                        <input type="text" name="shopname" class="form-control input-custom" placeholder="Enter shop name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Mobile:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-solid fa-phone"></i>
+                                        <input type="text" id="mobile" name="mobile" class="form-control input-custom" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" placeholder="Enter mobile" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Email:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-regular fa-envelope"></i>
+                                        <input type="email" name="email" class="form-control input-custom" placeholder="Enter email" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <label class="form-label-custom">Address:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <input type="text" name="address" class="form-control input-custom" placeholder="Enter address" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">UserName:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-regular fa-id-badge"></i>
+                                        <input type="text" name="username" class="form-control input-custom" placeholder="Choose username" required>
+                                    </div>
+                                </div>  
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label-custom">Password:</label>
+                                    <div class="input-group-custom">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <input type="password" name="password" class="form-control input-custom" placeholder="Enter password" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-grocery w-100 mb-2">Register Now</button>
+                                <div class="text-center mt-2">
+                                    <span class="text-muted small">Already have an account? </span>
+                                    <a href="{% url 'login' %}" class="text-success fw-bold text-decoration-none small">Login Here</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
-                     <div class="col-md-6 mb-3">
-                        Mobile:
-                        <input type="text" name="mobile" class="form-control" required>
-                    </div>
-
-                     <div class="col-md-6 mb-3">
-                        Email:
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-
-                     <div class="col-md-6 mb-3">
-                        Address:
-                        <textarea name="address" class="form-control"></textarea>
-                    </div>
-
-                     <div class="col-md-6 mb-3">
-                        UserName:
-                        <input type="text" name="username" class="form-control" required>
-                    </div>  
-
-                     <div class="col-md-6 mb-3">
-                        Password:
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
                 </div>
-                <center>
-                        <button class="btn btn-success">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        <!-- login link provide -->
-                        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
-                </center>
-            </form>
-        </div>
-        </div>
-       </div>
-       </div>
-{% endblock %}
+<script>
+    document.querySelector("#registerForm").addEventListener("submit", function (e) {
+        const mobileInput = document.querySelector("#mobile");
+        const fullPhone = document.querySelector("#full_phone");
+        if (fullPhone) {
+            fullPhone.value = mobileInput.value;
+        }
+    });
+</script>
 </body>
 </html>
+{% endblock %}

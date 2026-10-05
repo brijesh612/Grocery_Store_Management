@@ -1,0 +1,51 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+    <div class="container my-5" style="max-width: 600px;">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card-header bg-success text-white py-3">
+                <h4 class="mb-0 fw-bold text-center">Edit Staff</h4>
+            </div>
+
+            <div class="card-body p-4 bg-white">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3 text-center">
+                        {% if staff.image %}
+                            <img src="{{ staff.image.url }}" class="rounded-circle border border-2 border-success mb-2" style="width: 80px; height: 80px; object-fit: cover;">
+                        {% endif %}
+                            <input type="file" name="image" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ staff.name }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Role</label>
+                        <input type="text" name="role" class="form-control" value="{{ staff.role }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Phone</label>
+                        <input type="text" name="phone" class="form-control" value="{{ staff.phone }}" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="True" {% if staff.is_active %}selected{% endif %}>Active</option>
+                            <option value="False" {% if not staff.is_actie %}selected{% endif %}>Inactive(Not Available)</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'manage_staff' %}" class="btn btn-secondary px-4 fw-bold">Cancel</a>
+                        <button type="submit" class="btn btn-success px-4 fw-bold">Update Staff</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

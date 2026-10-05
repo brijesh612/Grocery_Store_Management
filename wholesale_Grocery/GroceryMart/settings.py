@@ -62,6 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
@@ -133,3 +134,12 @@ LOGIN_URL = 'login'
 
 SESSION_COOKIE_SAMESITE = 'Lax' # session and cookies ne allow.
 CSRF_COOKIE_SAMESITE = 'Lax'
+
+# email setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jagatiyabrijesh@gmail.com'
+EMAIL_HOST_PASSWORD = 'jxgoooahdvilfzya'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -1,17 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
 
-        <h2>Our Support & Delivery Team</h2>
+<div class="container py-4">
+    <h2 class="fw-bold text-dark border-bottom border-success border-3 d-inline-block pb-2 mb-4">
+        Our Support & Delivery Team
+    </h2>
 
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            {% for staff in staff_list %}
-            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; width: 200px;">
-                <h4 style="margin: 0;">{{ staff.name }}</h4>
-                <p style="color: #666; margin: 5px 0;">Role: <b>{{ staff.role }}</b></p>
-                <p style="margin: 5px 0;"> {{ staff.phone }}</p>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for staff in staff_list %}
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-3 position-relative">
+                
+                <!-- staff active / inactive badge -->
+                <span class="position-absolute top-0 end-0 m-3 badge rounded-pill {% if staff.is_active or staff.status %}bg-success-subtle text-success border border-success{% else %}bg-secondary-subtle text-secondary border border-secondary{% endif %}">
+                    {% if staff.is_active or staff.status %}
+                        Available
+                    {% else %}
+                        Not Available
+                    {% endif %}
+                </span>
+
+                <!-- staff image show -->
+                <div class="my-2">
+                    {% if staff.image %}
+                        <img src="{{ staff.image.url }}" class="rounded-circle border border-success border-3 object-fit-cover {% if not staff.is_active and not staff.status %}opacity-50{% endif %}" style="width: 80px; height: 80px;">
+                    {% else %}
+                        <img src="https://ui-avatars.com/api/?name={{ staff.name }}&background=198754&color=fff&bold=true" class="rounded-circle border border-success border-3 {% if not staff.is_active and not staff.status %}opacity-50{% endif %}" style="width: 80px; height: 80px;">
+                    {% endif %}
+                </div>
+
+                <!-- staff details show -->
+                <h5 class="fw-bold mb-1 text-dark">{{ staff.name }}</h5>
+                <p class="badge bg-light text-success fw-semibold px-3 py-1 rounded-pill w-auto mx-auto border mb-2">{{ staff.role }}</p>
+                
+                {% if staff.is_active or staff.status %}
+                    <p class="text-secondary small mb-3">{{ staff.phone }}</p>
+                    <!-- staff call feature for active staff -->
+                    <a href="tel:{{ staff.phone }}" class="btn btn-outline-success btn-sm rounded-3 mt-auto w-100 fw-bold">
+                        <i class="bi bi-telephone-fill me-1"></i> Call Staff
+                    </a>
+                {% else %}
+                    <p class="text-muted small mb-3">Deactivated / Off-duty</p>
+                    <!-- disabled button for inactive staff -->
+                    <button class="btn btn-secondary btn-sm rounded-3 mt-auto w-100 fw-bold" disabled>
+                        Not Available
+                    </button>
+                {% endif %}
+
             </div>
-            {% empty %}
-            <p>No staff available right now.</p>
-            {% endfor %}
         </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

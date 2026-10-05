@@ -38,7 +38,9 @@
                         <span class="badge bg-secondary">{{ order.order_status }}</span>
                     {% endif %}
                 </td>
-            <td><a href="{% url 'invoice_view' order.id %}" class="btn btn-sm btn-outline-primary" target="_blank">View Invoice</a></td>
+            
+               <td><a href="{% url 'invoice_view' order.id %}" class="btn btn-sm btn-outline-primary" target="_blank">View Invoice</a></td>
+               <td><a href="{% url 'track_order' order.id %}" class="btn btn-sm btn-info text-white">Tracker Order</a></td>
         </tr>
     {% endfor %}
          </tbody>

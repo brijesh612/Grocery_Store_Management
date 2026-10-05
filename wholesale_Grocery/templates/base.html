@@ -8,42 +8,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Management</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap Icons for Login & Mega Menu -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <header>
-        <div class="navbar">
-            <div class="logo">
-                <img src="{% static 'image/logo.jpg' %}" alt="Logo">
-            </div>
+            <header class="pro-header">
+                <div class="header-container">
+                    
+                    <!-- brand logo and title -->
+                    <a href="/" class="brand-link">
+                        <div class="logo-circle">
+                            <img src="{% static 'image/logo.jpg' %}" alt="Logo">
+                        </div>
+                        <div class="brand-titles">
+                            <span class="store-main-title">GROCERY PRO</span>
+                            <span class="store-sub-title">FRESHNESS DELIVERED</span>
+                        </div>
+                    </a>
 
+                <!-- search bar and category dropdown -->
+                <form action="{% url 'products' %}" method="GET" class="header-search-form">
+                <div class="search-pill-box">
+                    <button type="submit" class="search-icon-btn">
+                         <i class="fa-solid fa-magnifying-glass"></i>
+                     </button>
+                    <input type="text" name="query" value="{{ query|default:'' }}" placeholder="Search Products" class="pill-input">
+                    
+                    <div class="cat-dropdown-wrapper">
+                        <!-- Category Button Trigger for Mega Menu Modal -->
+                        <button type="button" class="category-btn" data-bs-toggle="modal" data-bs-target="#megaCategoryModal">
+                            CATEGORY <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+                <!-- mobile toggle button -->
             <div class="toggle-btn" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
 
-            <nav class="menu" id="navMenu">
+            <!-- navigation links -->
+            <nav class="nav-links menu" id="navMenu">
                 <a href="/">Home</a> 
                 <a href="/products/">Products</a> 
                 <a href="/contact/">Contact Us</a> 
-                <a class="nav-link" href="{% url 'client_show_staff' %}">Staff</a>
-                <a class="nav-link" href="{% url 'my_order' %}">My Order</a>
-             </nav>
+                <a href="{% url 'client_show_staff' %}">Staff</a>
+                <a href="{% url 'my_order' %}">My Order</a>
+            </nav>
 
-             <div class="account">
+            <!-- user account and profile dropdown -->
+            <div class="profile-dropdown-wrapper">
                 {% if request.session.customer_name %}
-                <span>Welcome,{{ request.session.customer_name }}</span>
-                   <a href="{% url 'logout' %}" class="login">Logout</a>
+                    <div class="profile-trigger" onclick="toggleDropdown('profileDropdown')">
+                        <div class="profile-circle">
+                            {{ request.session.customer_name|first|upper }}
+                        </div>
+                        <i class="fa-solid fa-user user-icon"></i>
+                    </div>
+                    <div id="profileDropdown" class="dropdown-list" style="background-color: white;">
+                        <a href="#">Profile</a>
+                        <a href="#">Settings</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
                 {% else %}
-                   <a href="/login/" class="login">Login</a> 
-                   <a href="/register/" class="register">Register</a>
+                    <div class="account-actions">
+                        <a href="/login/" class="login-btn">Login</a>
+                        <a href="/register/" class="register-btn">Register</a>
+                    </div>
                 {% endif %}
-             </div>
-        <hr>
+            </div>
         </div>
-        </header>
+    </header>
+
     <main>
         {% block content %}
 
@@ -62,8 +103,8 @@
 
         <div>
             <h2>Support</h2>
-            <p>Help Cusromer</p>
-            <p>Privecy</p>
+            <p>Help Customer</p>
+            <p>Privacy</p>
             <p>Security</p>
         </div>
 
@@ -79,10 +120,131 @@
             <p>Ahmedabad</p>
         </div>
     </footer>
+
+    <!-- Mega Category Modal Popup (Aapkabazar style) -->
+    <div class="modal fade" id="megaCategoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable" style="margin-top: 80px;">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                
+                <!-- Modal Header -->
+                <div class="modal-header bg-success text-white py-3 px-4">
+                    <h5 class="modal-title fw-bold mb-0">
+                        <i class="bi bi-grid-fill me-2"></i>All Grocery Categories
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal Body Grid -->
+                <div class="modal-body p-4 bg-white">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 text-start">
+                        
+                        <!-- Column 1: Breakfast, Dips & Spreads -->
+                        <div class="col">
+                            <h6 class="fw-bold text-success border-bottom border-success border-2 pb-1 mb-2">
+                                <a href="{% url 'products' %}?category=Breakfast" class="text-success text-decoration-none">Breakfast, Dips & Spreads</a>
+                            </h6>
+                            <ul class="list-unstyled small text-secondary d-flex flex-column gap-1 mb-0">
+                                <li><a href="{% url 'products' %}?category=Bakery" class="text-secondary text-decoration-none">Breads And Bakery</a></li>
+                                <li><a href="{% url 'products' %}?category=Cereals" class="text-secondary text-decoration-none">Breakfast Cereals</a></li>
+                                <li><a href="{% url 'products' %}?category=Spreads" class="text-secondary text-decoration-none">Spreads & Sauces</a></li>
+                                <li><a href="{% url 'products' %}?category=Pickles" class="text-secondary text-decoration-none">Pickles & Chutney</a></li>
+                                <li><a href="{% url 'products' %}?category=Dairy" class="text-secondary text-decoration-none">Dairy & Yoghurt</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Column 2: Hot & Cold Beverages -->
+                        <div class="col">
+                            <h6 class="fw-bold text-success border-bottom border-success border-2 pb-1 mb-2">
+                                <a href="{% url 'products' %}?category=Beverages" class="text-success text-decoration-none">Hot & Cold Beverages</a>
+                            </h6>
+                            <ul class="list-unstyled small text-secondary d-flex flex-column gap-1 mb-0">
+                                <li><a href="{% url 'products' %}?category=Tea" class="text-secondary text-decoration-none">Coffee & Tea</a></li>
+                                <li><a href="{% url 'products' %}?category=Juices" class="text-secondary text-decoration-none">Fruit Juices & Drinks</a></li>
+                                <li><a href="{% url 'products' %}?category=Soft Drinks" class="text-secondary text-decoration-none">Energy & Soft Drinks</a></li>
+                                <li><a href="{% url 'products' %}?category=Nutrition" class="text-secondary text-decoration-none">Nutrition Mix</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Column 3: Atta, Rice & Dals -->
+                        <div class="col">
+                            <h6 class="fw-bold text-success border-bottom border-success border-2 pb-1 mb-2">
+                                <a href="{% url 'products' %}?category=Atta" class="text-success text-decoration-none">Atta, Rice & Dals</a>
+                            </h6>
+                            <ul class="list-unstyled small text-secondary d-flex flex-column gap-1 mb-0">
+                                <li><a href="{% url 'products' %}?category=Flours" class="text-secondary text-decoration-none">Sooji, Maida & Besan</a></li>
+                                <li><a href="{% url 'products' %}?category=Atta" class="text-secondary text-decoration-none">Atta / Flours</a></li>
+                                <li><a href="{% url 'products' %}?category=Dal" class="text-secondary text-decoration-none">Dals & Millets</a></li>
+                                <li><a href="{% url 'products' %}?category=Rice" class="text-secondary text-decoration-none">Rice & Similar Products</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Column 4: Masalas, Oils & Dry Fruits -->
+                        <div class="col">
+                            <h6 class="fw-bold text-success border-bottom border-success border-2 pb-1 mb-2">
+                                <a href="{% url 'products' %}?category=Masalas" class="text-success text-decoration-none">Masalas, Oils & Dry Fruits</a>
+                            </h6>
+                            <ul class="list-unstyled small text-secondary d-flex flex-column gap-1 mb-0">
+                                <li><a href="{% url 'products' %}?category=Oil" class="text-secondary text-decoration-none">Edible Oils & Ghee</a></li>
+                                <li><a href="{% url 'products' %}?category=Spices" class="text-secondary text-decoration-none">Masalas & Spices</a></li>
+                                <li><a href="{% url 'products' %}?category=Dry Fruits" class="text-secondary text-decoration-none">Dry Fruits & Nuts</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Column 5: Chips, Biscuits & Namkeens -->
+                        <div class="col">
+                            <h6 class="fw-bold text-success border-bottom border-success border-2 pb-1 mb-2">
+                                <a href="{% url 'products' %}?category=Snacks" class="text-success text-decoration-none">Chips, Biscuits & Namkeens</a>
+                            </h6>
+                            <ul class="list-unstyled small text-secondary d-flex flex-column gap-1 mb-0">
+                                <li><a href="{% url 'products' %}?category=Namkeen" class="text-secondary text-decoration-none">Namkeen & Savoury</a></li>
+                                <li><a href="{% url 'products' %}?category=Chips" class="text-secondary text-decoration-none">Chips & Corn Snacks</a></li>
+                                <li><a href="{% url 'products' %}?category=Biscuits" class="text-secondary text-decoration-none">Biscuits, Cookies & Wafers</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2 px-4 justify-content-between">
+                    <span class="small text-muted"><i class="bi bi-info-circle me-1"></i> Click any category to view products</span>
+                    <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #megaCategoryModal .list-unstyled a:hover {
+            color: #198754 !important;
+            font-weight: 600;
+            padding-left: 2px;
+            transition: all 0.2s ease;
+        }
+    </style>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
         function toggleMenu(){
             document.getElementById("navMenu").classList.toggle("active");
         }
-     </script>
+        function toggleDropdown(id) {
+            document.querySelectorAll('.dropdown-list').forEach(list => {
+                if (list.id !== id) list.classList.remove('show-dropdown');
+            });
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.toggle('show-dropdown');
+            }
+        }
+
+        // close dropdown when clicked outside
+        window.onclick = function(event) {
+            if (!event.target.closest('.cat-dropdown-wrapper') && !event.target.closest('.profile-dropdown-wrapper')) {
+                document.querySelectorAll('.dropdown-list').forEach(list => {
+                    list.classList.remove('show-dropdown');
+                });
+            }
+        };
+    </script>
 </body>
 </html>

@@ -20,6 +20,7 @@
             <th>Address</th>
             <th>UserName</th>
             <th>Password</th>
+            <th>Action</th>
           </tr>
         </thead>
 
@@ -33,10 +34,66 @@
             <td>{{ customer.address }}</td>
             <td>{{ customer.username }}</td>
             <td>{{ customer.password }}</td>
+            <td>
+              <a href="{% url 'edit_customer' customer.id %}" class="btn btn-warning btn-sm fw-bold">Edit</a>
+              <a href="{% url 'delete_customer' customer.id %}" class="btn btn-danger btn-sm fw-bold" onclick="return confirm('Are you sure you want to delete this customer?');">Delete</a>
+            </td>
         </tr>
         {% endfor %}
        </tbody>
        </table>
+
+       <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <span class="text-muted">
+            Showing Page {{ customers.number }} of {{ customers.paginator.num_pages }}
+          </span>
+        </div>
+
+        <nav>
+          <ul class="pagination mb-0">
+            {% if customers.has_previous %}
+              <li class="page-item">
+                <a class="page-link text-success" href="?page=1">&laquo; First</a>
+              </li>
+
+              <li class="page-item">
+                <a class="page-link text-success" href="?page={{ customers.previous_page_number }}">Previous</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                 <span class="page-link">Previous</span>
+              </li>
+            {% endif %}
+
+            {% for num in customers.paginator.page_range %}
+              {% if customers.number == num %}
+                <li class="page-item active">
+                  <span class="page-link bg-success border-success text-white">{{ num }}</span>
+                </li>
+
+              {% elif num > customers.number|add:'-3' and num < customers.number|add:'3' %}
+                <li class="page-item">
+                  <a class="page-link text-success" href="?page={{ num }}">{{ num }}</a>
+                </li>
+              {% endif %}
+              {% endfor %}
+
+              {% if customers.has_next %}
+                <li class="page-item">
+                  <a class="page-link text-success" href="?page={{ customers.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link text-success" href="?page={{ customers.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled">
+                  <span class="page-link">Next</span>
+                </li>
+              {% endif %}
+          </ul>
+        </nav>
+       </div>
 </body>
 </html>
 {% endblock %}

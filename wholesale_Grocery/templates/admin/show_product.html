@@ -35,8 +35,8 @@
     {% for i in product %}
      <tr>
          <td>{{ i.id }}</td>
-         <td>{% if i.image %}
-               <img src="{{ i.image.url }}" width="70" height="70">
+         <td>{% if i.main_image %}
+               <img src="{{ i.main_image.url }}" width="70" height="70">
              {% else %}
                 No Image
              {% endif %}
@@ -54,7 +54,7 @@
          </td>
 
          <td>
-            <a href="#">Edit</a>
+            <a href="{% url 'edit_product' i.id %}">Edit</a>
             <a href="{% url 'delete_product' i.id %}">Delete</a>
         </td>
         

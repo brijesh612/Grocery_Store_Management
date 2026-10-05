@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5" style="max-width: 650px;">
+    <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
+        <div class="card-header bg-success text-white py-3" style="background: linear-gradient(135deg, #198754, #146c43);">
+            <h4 class="mb-0 fw-bold fs-5 text-center text-uppercase tracking-wide">
+                <i class="bi bi-pencil-square me-2"></i>Edit Order #{{ order.id }}
+            </h4>
+        </div>
+
+        <div class="card-body p-4 bg-white">
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Customer Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small text-uppercase">Customer</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted">
+                            <i class="bi bi-person-fill"></i>
+                        </span>
+                        <input type="text" class="form-control bg-white border-start-0 text-dark fw-semibold" value="{{ order.customername }}" readonly>
+                    </div>
+                </div>
+
+                <!-- Product Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small text-uppercase">Product</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted">
+                            <i class="bi bi-box-seam-fill"></i>
+                        </span>
+                        <input type="text" class="form-control bg-white border-start-0 text-dark fw-semibold" value="{% if order.product.productname %}{{ order.product.productname }}{% else %}{{ order.product }}{% endif %}" readonly>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-secondary small text-uppercase">Payment Method</label>
+                    <select name="payment" class="form-select shadow-sm">
+                        <option value="Razorpay" {% if order.payment_method == 'Razorpay' %}selected{% endif %}>Razorpay</option>
+                        <option value="COD" {% if order.payment_method == 'COD' %}selected{% endif %}>COD</option>
+                    </select>
+                </div>
+
+                <!-- Order Status -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-secondary small text-uppercase">Order Status</label>
+                    <select name="status" class="form-select shadow-sm fw-semibold">
+                        <option value="Pending" class="text-warning" {% if order.order_status == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="Confirmed" class="text-info" {% if order.order_status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                        <option value="Shipped" class="text-primary" {% if order.order_status == 'Shipped' %}selected{% endif %}>Shipped</option>
+                        <option value="Delivered" class="text-success" {% if order.order_status == 'Delivered' %}selected{% endif %}>Delivered</option>
+                        <option value="Cancelled" class="text-danger" {% if order.order_status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-center gap-2 pt-2 border-top">
+                    <a href="{% url 'admin_order_show' %}" class="btn btn-outline-secondary px-4 fw-semibold rounded-2">Cancel</a>
+                    <button type="submit" class="btn btn-success px-4 fw-semibold rounded-2 shadow-sm">Update Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
